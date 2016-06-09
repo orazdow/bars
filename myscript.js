@@ -16,6 +16,7 @@ for(var i = 0; i < num; i++){
  bars[i] = new Bar(10+i*10, canvas.height, 5, 100);
  bars[i].update();
  } 
+ ctx.stroke();
  ctx.closePath(); 
  real = new Float32Array(bars.length+1);
  imag = new Float32Array(bars.length+1);
@@ -30,7 +31,6 @@ this.y -= this.h;
 
 this.update = function() {
 ctx.rect(this.x, this.y, this.w, this.h);
-ctx.stroke();
 }  
 
 this.checkMouse = function(x,y) { 
@@ -47,6 +47,7 @@ function getMouse(event) {
    bars[i].checkMouse(event.offsetX, event.offsetY); 
    bars[i].update(); 
  } 
+ctx.stroke(); 
 ctx.closePath(); 
 resetWave(real);
 }
@@ -64,6 +65,7 @@ function clearBars() {
  ctx.beginPath();
  for(var i = 0; i < bars.length; i++){ 
  bars[i].h =  lev; bars[i].y = canvas.height - lev; bars[i].update();  }
+ ctx.stroke();
  ctx.closePath();
  resetWave(real);  
 }
@@ -74,6 +76,7 @@ function randomBars () {
  ctx.beginPath();
  for(var i = 0; i < bars.length; i++){ lev = Math.pow(Math.random(),3)*60;
  bars[i].h =  lev; bars[i].y = canvas.height - lev; bars[i].update();  }
+ ctx.stroke();
  ctx.closePath();
  resetWave(real); 
 }
