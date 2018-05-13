@@ -4,6 +4,7 @@ var ctx = canvas.getContext("2d");
 var bars = [];
 var real;
 var imag;
+var context, output, wave, osc;
 
 initBars();
 
@@ -85,16 +86,20 @@ function getFreq (input) {
  osc.frequency.value = input.value;
 } 
 
-var context = new AudioContext();
-var output = context.createGain();
-output.connect(context.destination);
+function initAudio(event){
+	context = new AudioContext();
+	output = context.createGain();
+	output.connect(context.destination);
 
+	wave = context.createPeriodicWave(real, imag);
+	osc = context.createOscillator();
+	osc.setPeriodicWave(wave);
 
-var wave = context.createPeriodicWave(real, imag);
-var osc = context.createOscillator();
-osc.setPeriodicWave(wave);
+	osc.frequency.value = 50;
+	osc.start();
+	osc.connect(output);
 
-osc.frequency.value = 50;
-osc.start();
-osc.connect(output);
+	let a = event.srcElement;
+	a.parentNode.removeChild(a);
+}
 
